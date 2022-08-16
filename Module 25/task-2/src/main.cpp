@@ -1,5 +1,8 @@
-#include "header.h"
-
+#include "ram.h"
+#include "cpu.h"
+#include "disk.h"
+#include "gpu.h"
+#include "kbd.h"
 
 int main() {
 
