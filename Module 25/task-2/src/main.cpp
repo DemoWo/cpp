@@ -1,4 +1,3 @@
-#include "ram.h"
 #include "cpu.h"
 #include "disk.h"
 #include "gpu.h"
