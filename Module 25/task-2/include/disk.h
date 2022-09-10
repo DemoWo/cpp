@@ -1,9 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
 
-const std::string file_name = "data.txt";
+void save ();
 
-void save(const std::vector<int>&);
-
-std::vector<int> load();
+void load ();

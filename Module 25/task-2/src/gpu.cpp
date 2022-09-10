@@ -1,12 +1,10 @@
 #include "gpu.h"
+#include "ram.h"
+#include <iostream>
 
-void display(const std::vector<int>& ram) {
-    if ( ram.empty() ) {
-        std::cout << "RAM is empty";
-    } else {
-        for ( int i : ram ) {
-            std::cout << i << " ";
-        }
+void display () {
+    for (int i = 0; i < 8; i++) {
+        std::cout << read(i) ;
     }
-    std::cout << std::endl;
+    std::cout <<std::endl;
 }

@@ -3,30 +3,31 @@
 #include "disk.h"
 #include "gpu.h"
 #include "kbd.h"
+#include <iostream>
 
 int main() {
 
     std::string command;
 
-    while (true) {
+    while (command != "exit") {
         std::cout << "Enter the command(sum/save/load/input/display/exit): " << std::endl;
         std::cin >> command;
 
-        if ( command == "sum" ) {
-            std::cout << compute(read()) << std::endl;
-        } else if ( command == "save" ) {
-            save(read());
-        } else if ( command == "load" ) {
-            write(load());
-        } else if ( command == "input" ) {
-            write(input());
-        } else if ( command == "display" ) {
-            display(read());
-        } else if ( command == "exit" ) {
-            break;
-        } else {
-            std::cout << "Error command" << std::endl;
-            continue;
+        if (command == "input") {
+            input();
+        } else if (command == "sum") {
+            sum();
+        } else if (command == "save") {
+            save();
+        } else if (command == "load") {
+            load();
+        } else if (command == "display"){
+            display();
+        } else if (command != "exit"){
+            std::cerr << "Error input!" << std::endl;
         }
+
     }
+    std::cout << "You have exited the program!" << std::endl;
+    return 0;
 }

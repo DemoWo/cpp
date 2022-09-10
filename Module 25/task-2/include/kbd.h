@@ -2,4 +2,4 @@
 
 #include <vector>
 
-std::vector<int> input();
+void input ();

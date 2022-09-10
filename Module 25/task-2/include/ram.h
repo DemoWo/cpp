@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
 
-void write(const std::vector<int>&);
+void write(int pos, int value);
 
-std::vector<int> read();
+int read(int x);

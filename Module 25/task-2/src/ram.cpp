@@ -1,11 +1,11 @@
 #include "ram.h"
 
-std::vector<int> ram;
+int buffer[8];
 
-void write(const std::vector<int>& vec) {
-    ram = vec;
+void write(int pos, int value){
+    buffer[pos] = value;
 }
 
-std::vector<int> read() {
-    return ram;
+int read (int x) {
+    return buffer [x];
 }
