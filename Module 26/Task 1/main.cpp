@@ -1,6 +1,26 @@
 #include <iostream>
 #include <vector>
 
+enum StatePlayer {
+    PLAY = 1,
+    STOP,
+    PAUSE
+};
+
+class Status
+{
+    StatePlayer state;
+public:
+    StatePlayer getState ()
+    {
+        return state;
+    }
+    void setState (StatePlayer inState)
+    {
+        state = inState;
+    }
+};
+
 class TrackList
 {
 public:
@@ -28,7 +48,7 @@ public:
                     std::cout << "Duration track: " << track[count][j] << std::endl;
                 }
             }
-            std::cout << std::endl;
+            std::cout << "---------------------"<< std::endl;
             break;
         }
     }
@@ -38,29 +58,57 @@ class Player
 {
     int count = 0;
     TrackList *track = new TrackList();
+    Status* status = new Status();
 
 public:
 
         void play() const
         {
-            std::cout << "Playback" << std::endl;
-            track -> showTrack(count);
+            if (status -> getState() != PLAY){
+                std::cout << "Playback" << std::endl;
+                status -> setState(PLAY);
+                track -> showTrack(count);
+            }
+            else if (status -> getState() == PLAY)
+            {
+                std::cout << "Already being played!" << std::endl;
+            }
         }
+
         void pause() const
         {
-            std::cout << "On pause" << std::endl;
-            track -> showTrack(count);
+            if (status -> getState() != PAUSE)
+            {
+                std::cout << "On pause" << std::endl;
+                status -> setState(PAUSE);
+                track->showTrack(count);
+            }
+            else if (status -> getState() == PAUSE)
+            {
+                std::cout << "The pause is already set!" << std::endl;
+            }
         }
+
         void next()
         {
             std::cout << "Next track" << std::endl;
             count = rand() % track -> track.size();
+            status -> setState(PLAY);
             track -> showTrack(count);
         }
+
         void stop() const
         {
-            std::cout << "On stop" << std::endl;
-            track -> showTrack(count);
+            if (status -> getState() != STOP)
+            {
+                std::cout << "On stop" << std::endl;
+                status->setState(STOP);
+                track->showTrack(count);
+            }
+            else if (status -> getState() == STOP)
+            {
+                std::cout << "The track has already been stopped!" << std::endl;
+            }
         }
 };
 
@@ -71,7 +119,7 @@ int main() {
     {
         std::cout << "Input command: (play/pause/next/stop/exit)" << std::endl;
         std::cin >> command;
-        std::cout << std::endl;
+        std::cout << "---------------------"<< std::endl;
         if (command == "play")
         {
             player -> play();
