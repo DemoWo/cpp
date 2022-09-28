@@ -1,55 +1,77 @@
 #include <iostream>
-#include <vector>
+#include <map>
+#include <string>
 
 class PhoneBook
 {
-    std::vector <std::vector<std::string>> book;
+    std::map <std::string ,std::string> book;
     std::string lastName;
     std::string numberPhone;
 
 public:
 
-    static std::string checkNumber (std::string number)
+    std::string checkNumber (std::string number)
     {
         std::cout << "Input number phone contacts:" << std::endl;
         std::cin >> number;
 
-        for (int i = 0; i < 2; ++i)
+        if (number.size() == 12)
         {
-            if (number[0] != '+' || number[1] != '7') {
-                std::cerr << "Error input numbers!" << std::endl;
-                std::cout << "Input number phone contacts:" << std::endl;
-                std::cin >> number;
+            if (number[0] == '+' && number[1] == '7'){
+                for (int i = 2; i != number.size(); ++i)
+                {
+                    if (number[i] < '0' || number[i] > '9')
+                    {
+                        std::cerr << "Error input numbers!" << std::endl;
+                        std::cout << "Input number phone contacts:" << std::endl;
+                        std::cin >> number;
+                    }
+                }
+            }
+            else
+            {
+                std::cerr << "The number must have the form +7 <10 digits>!" << std::endl;
+                return checkNumber(number);
             }
         }
-        for (int k = 2; k < 12; ++k)
+        else
         {
-            if (number[k] < '0' || number[k] > '9' || number.size() != 12)
-            {
-                std::cerr << "Error input numbers!" << std::endl;
-                std::cout << "Input number phone contacts:" << std::endl;
-                std::cin >> number;
-            }
+            std::cerr << "The number must have the form +7 <10 digits>!" << std::endl;
+            return checkNumber(number);
         }
         return number;
     }
 
-    void showContacts (int h)
+    void showContacts (const std::string& user, const std::string& mess)
     {
-        //for (int h = 0; h < book.size(); h++){
-        for ( int k = 0; k < book[h].size(); k++){
-            if (k == 0)
+        bool res = true;
+        std::cout << "---------------------------------" << std::endl;
+        for (auto it = book.begin(); it != book.end(); ++it)
+        {
+            if (it -> first == user)
             {
-                std::cout << "Name Contacts: "<< book[h][k] << std:: endl;
+                std::cout << "Name Contacts: "<< it -> first << std:: endl;
+                std::cout << "Number Contacts: " << it -> second << std:: endl;
+                std::cout << mess << std::endl;
+                res = true;
+                break;
             }
-            else if (k == 1)
+            else if (it -> second == user)
             {
-                std::cout << "Number Contacts: " << book[h][k] << std:: endl;
+                std::cout << "Name Contacts: "<< it -> first << std:: endl;
+                std::cout << "Number Contacts: " << it -> second << std:: endl;
+                std::cout << mess << std::endl;
+                res = true;
+                break;
             }
-
+            else
+                res = false;
         }
-        std::cout << std::endl;
-        // }
+        if (!res)
+        {
+            std::cout << "Contact not found!" << std::endl;
+        }
+        std::cout << "---------------------------------" << std::endl;
     }
 
     void contacts()
@@ -57,30 +79,22 @@ public:
         std::cout << "Input Last Name contacts:" << std::endl;
         std::cin >> lastName;
         numberPhone = checkNumber(numberPhone);
-        book.push_back(std::vector<std::string>{lastName, numberPhone});
-
+        book.insert(std::pair <std::string ,std::string> (lastName, numberPhone));
     }
-    void search(const std::string& requestContacts, const std::string& operation)
+
+    void search(const std::string& requestContacts,const std::string& operation)
     {
+        std::string text;
         if (!book.empty()){
-            for (int h = 0; h < book.size() ; h++){
-                for ( int k = 0; k < book[h].size(); k++){
-                    if ((k == 0 && book[h][k] == requestContacts) ||
-                        (k == 1 && book[h][k] == requestContacts))
-                    {
-                        if (operation == "call") {
-                            std::cout << "Contact called:" << std::endl;
-                            showContacts(h);
-                            break;
-                        }
-                        else if (operation == "sms"){
-                            std::cout << "The message was sent to the contact:" << std::endl;
-                            showContacts(h);
-                            break;
-                        }
-                    } else if (k == book.size())
-                        std::cout << "Contact not found!" << std::endl;
-                }
+            if (operation == "call") {
+                text = "Contact called!";
+                showContacts(requestContacts, text);
+            }
+            else if (operation == "sms"){
+                std::cout << "Enter the text to send:" << std::endl;
+                std::cin >> text;
+                //std::getline(std::cin,text);
+                showContacts(requestContacts, text);
             }
         }
         else
@@ -95,24 +109,25 @@ class Phone
     std::string operation;
 
 public:
+
     void add ()
     {
         phoneBook -> contacts();
     }
+
     void call ()
     {
-
         std::cout << "Enter the contact's number or name:" << std::endl;
         std::cin >> request;
         phoneBook -> search(request, operation = "call");
     }
+
     void sms ()
     {
         std::cout << "Enter the contact's number or name:" << std::endl;
         std::cin >> request;
         phoneBook -> search(request, operation = "sms");
     }
-
 };
 
 int main() {
