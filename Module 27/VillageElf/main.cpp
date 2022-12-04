@@ -1,42 +1,96 @@
 #include <iostream>
 #include <vector>
 
-class Village
+class Tree
+{
+  std::string name = "Empty";
+  std::vector <Tree> branchs;
+
+public:
+
+void createTree(int maxBigBr,int minBigBr,int maxMidBr,int minMiBr)
+{
+  std::srand((unsigned int)time(nullptr));
+        int countBigBranch = std::rand() % (maxBigBr - minBigBr + 1) + minBigBr;
+        branchs.resize(countBigBranch);
+        for (int i = 0; i < countBigBranch; i++)
         {
-    std::vector <int> branch;
-
-        public:
-
-    struct BRANCH
-    {
-        std::string *nameElf;
-        std::vector <int> bigBranch;
-        std::vector <int> middleBranch;
-    };
-
-            static void elfHome ()
+            std::cout << "Enter elf name on " << i + 1 << " big branch: ";
+            std::cin >> branchs[i].name;
+            int countMidBranch = std::rand() % (maxMidBr - minMiBr + 1) + minMiBr;
+            branchs[i].branchs.resize(countMidBranch);
+            for (int j = 0; j < countMidBranch; j++)
             {
-                BRANCH branch1;
-
-              for (int i = 0; i < 5; i++)
-              {
-                  branch1.bigBranch.push_back(3 + rand() % (6 - 3));
-
-                  for (int k = 0; k < branch1.bigBranch[i]; k++)
-                    branch1.middleBranch.push_back(2 + rand() % (4 - 2));
-              }
-              for (int j = 0; j < 5; j++)
-              {
-                  std::cout << branch1.bigBranch[j] << " / " ;
-
-                  for (int h = 0; h < branch1.bigBranch[j]; h++)
-                    std:: cout << branch1.middleBranch[j] << " ";
-                  std::cout << std::endl;
-              }
+                std::cout << "Enter elf name on " << i + 1 << " big branch " << j + 1 << " middle branch: ";
+                std::cin >> branchs[i].branchs[j].name;
             }
-        };
+        }
+}
 
-int main() {
-    Village::elfHome();
-    return 0;
+void createVillage (int countTree)
+{
+  branchs.resize(countTree);
+  for (int i = 0; i < countTree; i++)
+    {
+      int maxBigBr = 5;
+      int minBigBr = 3;
+      int maxMidBr = 3;
+      int minMiBr = 2;
+      std::cout << i + 1 << " tree" << std::endl;
+      createTree(maxBigBr, minBigBr, maxMidBr,  minMiBr);
+    }
+}
+
+  void findElf(const std::string& fName, int countTree)
+  {
+    bool find = false;
+    for (int k = 0; k < countTree; k++)
+      {
+
+        for (auto & branch : branchs)
+        {
+            int result = 0;
+            if (branch.name == fName)
+            {
+                find = true;
+            } else
+            {
+                if (branch.name != "None")
+                {
+                    ++result;
+                }
+            }
+            for (auto & j : branch.branchs)
+            {
+                if (j.name == fName)
+                {
+                    find = true;
+                }
+
+                if (j.name != "None" && j.name != fName)
+                {
+                    ++result;
+                }
+            }
+           if (find)
+           {
+                std::cout << fName << " found! This elf has " << result << " neighbors" << std::endl;
+                return;
+            }
+        }
+        std::cout << "On " << k + 1 << " tree. " << fName << " not found!" << std::endl;
+      }
+    }
+};
+
+int main()
+{
+  auto* tr = new Tree();
+  std::string fName;
+  int countTree = 1;
+  tr -> createVillage(countTree);
+  std::cout << "FIND. Enter name: ";
+  std::cin >> fName;
+  tr -> findElf(fName, countTree);
+  return 0;
 }
