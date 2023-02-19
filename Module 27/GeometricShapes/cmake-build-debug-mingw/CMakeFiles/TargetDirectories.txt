@@ -1,0 +1,3 @@
+D:/Home Work/cpp/Module 27/GeometricShapes/cmake-build-debug-mingw/CMakeFiles/edit_cache.dir
+D:/Home Work/cpp/Module 27/GeometricShapes/cmake-build-debug-mingw/CMakeFiles/GeometricShapes.dir
+D:/Home Work/cpp/Module 27/GeometricShapes/cmake-build-debug-mingw/CMakeFiles/rebuild_cache.dir
