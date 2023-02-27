@@ -18,6 +18,10 @@ class Figure {
     double squareF = 0;
 
 public:
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
     void info() {
         std::cout << name << " INFO" << std::endl;
         std::cout << "Coordinates of the center X: " << x << " Y: " << y << std::endl;
@@ -27,7 +31,11 @@ public:
                 std::cout << "NO color" << std::endl;
                 break;
             case ColorID::RED:
+<<<<<<< HEAD
                 std::cout << "red" << std::endl;
+=======
+
+>>>>>>> origin/main
                 break;
             case ColorID::BLUE:
                 std::cout << "blue" << std::endl;
@@ -42,13 +50,26 @@ public:
             std::cout << " is Square with side :" << xFrame << std::endl;
         } else {
             std::cout << "is Rectangle with sides: X= " << xFrame << " Y: " << yFrame << std::endl << std::endl;
+<<<<<<< HEAD
+=======
+            std::cout << "A: x = " + std::to_string(x) + " y = " + std::to_string(y) + "\n" +
+                        "B: x = " + std::to_string(x) + " y = " + std::to_string(y + yFrame) + "\n" +
+                        "C: x = " + std::to_string(x + xFrame) + " y = " + std::to_string(y + yFrame) + "\n" +
+                        "D: x = " + std::to_string(x + xFrame) + " y = " + std::to_string(y) + "\n" << std::endl;
+>>>>>>> origin/main
         }
     }
 
 protected:
     void initialization() {
         std::cout << "Enter the coordinates of the center (X Y)" << std::endl << ">: ";
+<<<<<<< HEAD
         std::cin >> x >> y;
+=======
+        std::cin >> x;
+        std::cout << ">: ";
+        std::cin >> y;
+>>>>>>> origin/main
         std::cout << "Enter the number of color: "
                   << "\n0 - No color"
                   << "\n1 - Red"
@@ -79,6 +100,10 @@ protected:
         xFrame = inX;
         yFrame = inY;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 };
 
 class Circle : public Figure {
@@ -140,6 +165,10 @@ class Rectangle : public Figure {
         return (length * width);
     }
 public:
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
     void init() {
         Figure::initialization();
         std::cout << "Enter length side:" << std::endl << ">: ";
@@ -150,6 +179,7 @@ public:
         Figure::set_name(name);
         Figure::set_frame(length, width);
     }
+<<<<<<< HEAD
 };
 
 Rectangle* getOuterRectangle() {
@@ -164,6 +194,17 @@ int main() {
     while (true) {
         std::string com;
         std::cout << "Enter command (circle, square, triangle, rectangle, exit)" << std::endl << ">: ";
+=======
+
+};
+
+int main() {
+    Circle::Figure f {};
+    std::string com;
+
+    while (com != "exit") {
+        std::cout << "Enter command (circle, square, triangle, rectangle, exit)\n" << ">: ";
+>>>>>>> origin/main
         std::cin >> com;
 
         if (com == "circle") {
@@ -182,11 +223,19 @@ int main() {
             Rectangle rectangle;
             rectangle.init();
             rectangle.info();
+<<<<<<< HEAD
         } else if (com == "exit") {
             break;
         } else {
             std::cout << "Error command" << std::endl;
         }
     }
+=======
+        } else if (com != "exit"){
+            std::cout << "Error command" << std::endl;
+        }
+    }
+    std::cout << "Close program!" << std::endl;
+>>>>>>> origin/main
     return 0;
 }
