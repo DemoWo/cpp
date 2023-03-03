@@ -26,7 +26,9 @@ void time_Swimmer(int speedSwimmer, int distance, std::string nameSwimmer) {
     while(cur_distance < distance) {
         cur_distance += speedSwimmer;
         cur_time++;
+        resultSwimmer_access.lock();
         std::cout << "Swimmer " << nameSwimmer << " swam " << cur_distance << " meters\n";
+        resultSwimmer_access.unlock();
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     std::cout << nameSwimmer << " Finish!" << std::endl;
