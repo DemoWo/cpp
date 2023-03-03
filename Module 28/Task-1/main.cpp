@@ -5,22 +5,32 @@
 #include <mutex>
 #include <chrono>
 
-std::vector <std::string> resultSwimmer;
+struct SwimResult{
+    std::string name;
+    int time;
+};
+
+std::vector <SwimResult> resultSwimmer;
 std::mutex resultSwimmer_access;
 
-void save (const std::string& nameSwimmer, int sec)
+void save (const std::string &nameSwimmer, int time)
 {
     resultSwimmer_access.lock();
-    resultSwimmer.push_back("Name Swimmer: " + nameSwimmer + ", swim time: " + std::to_string(sec) + " second");
+    resultSwimmer.push_back({nameSwimmer, time});
     resultSwimmer_access.unlock();
 }
 
 void time_Swimmer(int speedSwimmer, int distance, std::string nameSwimmer) {
-
-    int sec = distance / speedSwimmer;
-    std::this_thread::sleep_for(std::chrono::seconds(sec));
+    int cur_distance = 0;
+    int cur_time = 0;
+    while(cur_distance < distance) {
+        cur_distance += speedSwimmer;
+        cur_time++;
+        std::cout << "Swimmer " << nameSwimmer << " swam " << cur_distance << " meters\n";
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
     std::cout << nameSwimmer << " Finish!" << std::endl;
-    save(nameSwimmer, sec);
+    save(nameSwimmer, cur_time);
 }
 
 void print_result ()
@@ -29,19 +39,21 @@ void print_result ()
     resultSwimmer_access.lock();
     for (int i = 0; i < resultSwimmer.size(); ++i)
     {
-        std::cout << i + 1 << ". " << resultSwimmer[i] << std::endl;
+            std::cout << i + 1 << ". Name: " << resultSwimmer[i].name << ". Time: " << resultSwimmer[i].time << std::endl;
     }
     resultSwimmer_access.unlock();
 }
 
 int main() {
     int distance = 100;
+    int numberOfSwimmers = 6;
     std::vector <std::string> nameSwimmer;
     std::vector <int> speedSwimmer;
     std::string inputStr;
     int inputInt;
+    std::thread swimmers[numberOfSwimmers];
 
-    for (int i = 0; i < 6; ++i)
+    for (int i = 0; i < numberOfSwimmers; ++i)
     {
         std::cout << "Input name " << i + 1 << " Swimmer!" << std::endl;
         std::cin >> inputStr;
@@ -53,12 +65,17 @@ int main() {
 
     std::cout << "Start!" << std::endl;
 
-    for (int i = 0; i < nameSwimmer.size(); ++i)
+
+    for (int i = 0; i < numberOfSwimmers; ++i)
     {
         inputInt = speedSwimmer[i];
         inputStr = nameSwimmer[i];
-        std::thread swimmer(time_Swimmer, inputInt, distance, inputStr);
-        if (swimmer.joinable()) swimmer.join();
+        swimmers[i] = std::thread (time_Swimmer, inputInt, distance, inputStr);
+
+    }
+
+    for (auto & swimmer : swimmers){
+        swimmer.join();
     }
 
     print_result();
