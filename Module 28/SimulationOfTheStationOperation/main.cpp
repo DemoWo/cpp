@@ -33,6 +33,7 @@ void TravelTrain (char name, int time)
 {
     std::string cmd;
     int timeTravel = 0;
+
     while (timeTravel < time)
     {
         timeTravel++;
@@ -41,13 +42,21 @@ void TravelTrain (char name, int time)
         allTrain_access.unlock();
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
+    allTrain_access.lock();
     std::cout << "Train : " << name << " arrived at the station!" << std::endl;
+    allTrain_access.unlock();
     Station(name);
+    std::lock_guard<std::mutex> m{ allTrain_access };
+    std::cout << "Wait for you command for deport train " << name << std::endl;
+    while (cmd != "deport") {
+        std::cin >> cmd;
+    }
 }
 
 int main() {
     int numTrain = 3;
     int travelTime;
+    bool endStation = false;
 
     for (int i = 0; i < numTrain; ++i)
     {
