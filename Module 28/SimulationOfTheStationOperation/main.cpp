@@ -56,7 +56,6 @@ void TravelTrain (char name, int time)
 int main() {
     int numTrain = 3;
     int travelTime;
-    bool endStation = false;
 
     for (int i = 0; i < numTrain; ++i)
     {
