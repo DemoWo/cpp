@@ -8,56 +8,72 @@ class Animal
             std::string name;
         };
 
-class Talent : virtual public Animal
+class Talent : public Animal
         {
         public:
-            virtual void show_talents (bool swimming, bool dancing, bool counting) = 0;
+    [[maybe_unused]] virtual void show_talents () = 0;
         };
-class Swimming : virtual public Talent
+class Swimming : public Talent
         {
         public:
-            virtual void setSwimming ()
+            void show_talents ()
             {
                 std::cout << "It can Swim" << std::endl;
             }
         };
 
-class Dancing : virtual public Talent
+class Dancing : public Talent
         {
         public:
-            virtual void setDancing ()
+            void show_talents ()
             {
                 std::cout << "It can Dance" << std::endl;
             }
         };
 
-class Counting : virtual public Talent
+class Counting : public Talent
         {
         public:
-            virtual void setCounting ()
+            void show_talents ()
             {
                 std::cout << "It can Count" << std::endl;
             }
         };
 
-class Dog : virtual public Swimming, virtual public Dancing, virtual public Counting
+class Dog : public Animal
+{
+    std::vector<Talent*> talents_;
+    std::string name_;
+
+public:
+    Dog (std::string name)
+    {
+        name_ = name;
+        std::cout << "This is "<< name_ << " and it has some talents: " << std::endl;
+
+    }
+    void add_talent(Talent* talent) {
+        talents_.push_back(talent);
+    }
+    void show_talents ()
+    {
+        if (talents_.empty())
         {
-        public:
-            Dog (std::string _name)
-            {
-                name = _name;
-                std::cout << "This is "<< name << " and it has some talents: " << std::endl;
+            std::string word;
+            add_talent();
+        }
+        else
+        {
+            for(int i = 0; i < talents_.size(); ++i) {
+                talents_[i]->show_talents();
             }
-            virtual void show_talents (bool swimming, bool dancing, bool counting)
-            {
-                if (swimming) setSwimming();
-                if (dancing) setDancing();
-                if (counting) setCounting();
-            }
-        };
+        }
+    }
+};
 
 int main() {
-    Talent* d = new Dog("Steven");
-    d -> show_talents(1,1,0);
+    //Talent d;
+    Dog dog("Steven");
+    dog.show_talents();
     return 0;
 }
