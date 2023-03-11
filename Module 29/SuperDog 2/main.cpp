@@ -2,17 +2,12 @@
 #include <string>
 #include <vector>
 
-class Animal
-        {
-        protected:
-            std::string name;
-        };
-
-class Talent : public Animal
+class Talent
         {
         public:
-    [[maybe_unused]] virtual void show_talents () = 0;
+        virtual void show_talents () = 0;
         };
+
 class Swimming : public Talent
         {
         public:
@@ -40,40 +35,36 @@ class Counting : public Talent
             }
         };
 
-class Dog : public Animal
+class Dog
 {
     std::vector<Talent*> talents_;
     std::string name_;
 
 public:
+
     Dog (std::string name)
     {
         name_ = name;
         std::cout << "This is "<< name_ << " and it has some talents: " << std::endl;
-
     }
+
     void add_talent(Talent* talent) {
         talents_.push_back(talent);
     }
+
     void show_talents ()
     {
-        if (talents_.empty())
-        {
-            std::string word;
-            add_talent();
-        }
-        else
-        {
-            for(int i = 0; i < talents_.size(); ++i) {
-                talents_[i]->show_talents();
-            }
+        for(int i = 0; i < talents_.size(); ++i) {
+            talents_[i]->show_talents();
         }
     }
 };
 
 int main() {
-    //Talent d;
     Dog dog("Steven");
+    dog.add_talent(new Swimming);
+    dog.add_talent(new Counting);
+    dog.add_talent(new Dancing);
     dog.show_talents();
     return 0;
 }
