@@ -58,6 +58,11 @@ public:
             talents_[i]->show_talents();
         }
     }
+
+    ~Dog()
+    {
+        std::cout << "Delete " << name_ << std::endl;
+    }
 };
 
 int main() {
