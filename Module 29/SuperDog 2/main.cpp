@@ -5,33 +5,33 @@
 class Talent
         {
         public:
-        virtual void show_talents () = 0;
+            virtual void show_talents () = 0;
         };
 
 class Swimming : public Talent
         {
         public:
-            void show_talents ()
+            virtual void show_talents ()
             {
-                std::cout << "It can Swim" << std::endl;
+                std::cout << "It can \"Swim\"" << std::endl;
             }
         };
 
 class Dancing : public Talent
         {
         public:
-            void show_talents ()
+            virtual void show_talents ()
             {
-                std::cout << "It can Dance" << std::endl;
+                std::cout << "It can \"Dance\"" << std::endl;
             }
         };
 
 class Counting : public Talent
         {
         public:
-            void show_talents ()
+            virtual void show_talents ()
             {
-                std::cout << "It can Count" << std::endl;
+                std::cout << "It can \"Count\"" << std::endl;
             }
         };
 
@@ -61,10 +61,13 @@ public:
 };
 
 int main() {
+    Swimming swimming;
+    Counting counting;
+    Dancing dancing;
     Dog dog("Steven");
-    dog.add_talent(new Swimming);
-    dog.add_talent(new Counting);
-    dog.add_talent(new Dancing);
+    dog.add_talent(&swimming);
+    dog.add_talent(&counting);
+    dog.add_talent(&dancing);
     dog.show_talents();
     return 0;
 }
