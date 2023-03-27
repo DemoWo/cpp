@@ -30,13 +30,6 @@ int main() {
     std::ofstream file ("record.json");
     if (file.is_open()) {
         nlohmann::json dir;
-        nlohmann::json actorArr;
-        for (int i = 0; i < film.actor.nameActor.size(); i++) {
-            actorArr[i]["name"] = film.actor.nameActor[i];
-            actorArr[i]["role"] = film.actor.role[i];
-        }
-        file << actorArr;
-
         dir["name film"] = film.nameFilm;
         dir["country"] = film.country;
         dir["date creation"] = film.dateCreation;
@@ -44,8 +37,10 @@ int main() {
         dir["author script"] = film.authorScript;
         dir["director"] = film.director;
         dir["producer"] = film.producer;
+        dir["name"] = film.actor.nameActor;
+        dir["role"] = film.actor.role;
 
-        file << dir;
+        file << std::setw(2) << dir;
         std::cout << "The file was created successfully" << std::endl;
     } else {
         std::cout << "File closed!" << std::endl;
