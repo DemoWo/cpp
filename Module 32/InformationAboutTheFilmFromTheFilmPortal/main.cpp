@@ -29,17 +29,17 @@ int main() {
     FILM film;
     std::ofstream file ("record.json");
     if (file.is_open()) {
-        nlohmann::json dir;
-        dir["name film"] = film.nameFilm;
-        dir["country"] = film.country;
-        dir["date creation"] = film.dateCreation;
-        dir["studio"] = film.studio;
-        dir["author script"] = film.authorScript;
-        dir["director"] = film.director;
-        dir["producer"] = film.producer;
-        dir["name"] = film.actor.nameActor;
-        dir["role"] = film.actor.role;
-
+        nlohmann::json dir{
+                {{"name film", film.nameFilm}},
+                {{"country", film.country},
+                {"date creation", film.dateCreation},
+                {"studio", film.studio},
+                {"author script", film.authorScript},
+                {"director", film.director},
+                {"producer", film.producer}},
+                {{"name", film.actor.nameActor},
+                {"role", film.actor.role}}
+        };
         file << std::setw(2) << dir;
         std::cout << "The file was created successfully" << std::endl;
     } else {
