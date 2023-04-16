@@ -25,20 +25,24 @@ struct FILM {
     ACTOR actor ;
 };
 
-int main() {
+int main()
+{
     FILM film;
     std::ofstream file ("record.json");
     if (file.is_open()) {
+        nlohmann::json dirActor;
+        for(int i = 0; i < film.actor.nameActor.size(); i++) {
+            dirActor[i] = {{"name", film.actor.nameActor[i]}, {"role", film.actor.role[i]}};
+        }
         nlohmann::json dir{
-                {{"name film", film.nameFilm}},
-                {{"country", film.country},
-                {"date creation", film.dateCreation},
-                {"studio", film.studio},
-                {"author script", film.authorScript},
-                {"director", film.director},
-                {"producer", film.producer}},
-                {{"name", film.actor.nameActor},
-                {"role", film.actor.role}}
+                { "name film", film.nameFilm },
+                { "country", film.country },
+                { "date creation", film.dateCreation },
+                { "studio", film.studio },
+                { "author script", film.authorScript },
+                { "director", film.director },
+                { "producer", film.producer },
+                { "actors", dirActor }
         };
         file << std::setw(2) << dir;
         std::cout << "The file was created successfully" << std::endl;
