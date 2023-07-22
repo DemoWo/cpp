@@ -4,8 +4,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Window {
-    width: 640
-    height: 480
+    width: 240
+    height: 680
     visible: true
     title: qsTr("TV Remote Control")
 
@@ -169,10 +169,11 @@ Window {
             TextField {
                 text: _mainwindow.text_field_status
                 activeFocusOnPress: false
+                clip: true
                 Layout.row: 5
                 Layout.leftMargin: 5
-                font.pixelSize: 30
-                implicitHeight: 50
+                font.pixelSize: 20
+                implicitHeight: 30
                 Layout.preferredWidth: rectangel_window.width - 10
             }
         }
