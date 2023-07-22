@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+*.user
 
 #Folder user
 *.idea/
@@ -37,3 +38,5 @@
 *cmake-build-debug/
 *cmake-build-debug-mingw/
 *.rar
+*build-VideoPlayerInQML-Desktop_Qt_6_5_0_MinGW_64_bit-Release
+*build-VideoPlayerInQML-Desktop_Qt_6_5_0_MinGW_64_bit-Debug

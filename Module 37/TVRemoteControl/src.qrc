@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/MainWindow"/>
+    <qresource prefix="/">
+        <file>mainwindow.cpp</file>
+        <file>mainwindow.h</file>
+        <file>main.cpp</file>
+        <file>Main.qml</file>
+    </qresource>
+</RCC>
