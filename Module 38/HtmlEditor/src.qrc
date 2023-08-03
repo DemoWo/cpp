@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>htmleditor.cpp</file>
+        <file>htmleditor.h</file>
+        <file>htmleditor.ui</file>
+        <file>main.cpp</file>
+    </qresource>
+</RCC>

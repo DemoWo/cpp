@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imageblurer.cpp</file>
+        <file>imageblurer.h</file>
+        <file>imageblurer.ui</file>
+        <file>main.cpp</file>
+    </qresource>
+</RCC>
