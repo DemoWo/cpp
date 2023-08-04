@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>widget.cpp</file>
-        <file>widget.h</file>
-        <file>widget.ui</file>
-    </qresource>
-</RCC>
